@@ -1,0 +1,61 @@
+package com.com.algorithms;
+
+import java.util.Scanner;
+
+/**
+ * Created by Amit on 6/19/15.
+ */
+public class FindIslandsInMatrix {
+
+    public static void main(String[] args){
+        int count = 0;
+        Scanner scn = new Scanner(System.in);
+        System.out.println("Enter the size of an Array");
+        int len = scn.nextInt();
+
+        int[][] arr = new int[len][len];
+        int[][] visited = new int[len][len];
+
+        for(int i=0;i<len;i++){
+            for(int j=0;j<len;j++){
+                arr[i][j] = scn.nextInt();
+                visited[i][j] = 0;
+            }
+        }
+
+        for(int i=0;i<len;i++){
+            for(int j=0;j<len;j++){
+                if(arr[i][j]==1 && visited[i][j]==0){
+                    visited[i][j]=1;
+                    count ++;
+                    FindMatches(arr, visited, i, j);
+                }
+            }
+        }
+
+        System.out.println(count);
+    }
+
+
+    public static void FindMatches(int[][] arr, int[][] visited, int i, int j){
+        int size = arr.length;
+        if(arr[i][j]==1)
+            visited[i][j]=1;
+
+        if(j>0 && i<size-1){
+            FindMatches(arr, visited, i+1, j-1);
+        }
+        if(i<size-1){
+            FindMatches(arr, visited, i+1,j);
+            if(j<size-1){
+                FindMatches(arr, visited, i+1, j+1);
+            }
+        }
+
+        if(j<size-1){
+            FindMatches(arr, visited, i, j+1);
+        }
+
+
+    }
+}
